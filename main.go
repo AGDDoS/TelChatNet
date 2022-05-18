@@ -13,12 +13,19 @@ import (
 	"fmt"
 	"log"
 	"net"
-  "flag"
 	"os"
 )
 
-func main() {
+const (
+	WelcomeMsg = "" +
+		"+-----------------------------------------------+\n" +
+		"| Welcome to use TelChatNet!                    |\n" +
+		"| If you have problems with this tools,         |\n" +
+		"|please submit s issues here: AGDDoS/TelChatNet |\n" +
+		"+-----------------------------------------------+"
+)
 
+func main() {
 	// Number of people whom ever connected
 	//
 	clientCount := 0
@@ -46,7 +53,8 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-
+	fmt.Println(WelcomeMsg)
+	fmt.Println("[INIT]Server init Ok!")
 	// Tell the server to accept connections forever and push new connections into the newConnections channel.
 	//
 	go func() {
@@ -103,7 +111,7 @@ func main() {
 
 			// Loop over all connected clients
 			//
-			for conn, _ := range allClients {
+			for conn := range allClients {
 
 				// Send them a message in a go-routine so that the network operation doesn't block
 				//
